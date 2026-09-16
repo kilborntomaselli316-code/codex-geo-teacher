@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "codex-geo-teacher"
+version = "0.1.0"
+description = "Open-source toolkit for Chinese high-school geography lesson prep with OpenAI / Codex"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+  { name = "kilborntomaselli316-code" },
+]
+keywords = ["geography", "education", "openai", "codex", "lesson-plan", "china"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Education",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Education",
+]
+dependencies = [
+  "typer>=0.12.0",
+  "openai>=1.40.0",
+  "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+  "ruff>=0.5.0",
+]
+
+[project.scripts]
+geo-lesson = "geo_lesson.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/kilborntomaselli316-code/codex-geo-teacher"
+Repository = "https://github.com/kilborntomaselli316-code/codex-geo-teacher"
+Issues = "https://github.com/kilborntomaselli316-code/codex-geo-teacher/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/geo_lesson"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/data",
+  "/prompts",
+  "/docs",
+  "/tests",
+  "/AGENTS.md",
+  "/CONTRIBUTING.md",
+  "/README.md",
+  "/LICENSE",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+
+[tool.hatch.build.targets.wheel.force-include]
+"data/curriculum_seed.json" = "geo_lesson/data/curriculum_seed.json"
+"prompts/outline_zh.md" = "geo_lesson/prompts/outline_zh.md"
+"prompts/pitfalls_zh.md" = "geo_lesson/prompts/pitfalls_zh.md"
+"prompts/quiz_zh.md" = "geo_lesson/prompts/quiz_zh.md"
